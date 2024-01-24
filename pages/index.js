@@ -3,6 +3,7 @@ const Home = () => {
   return (
     <>
       <Hero title='CUBE' subtitle='アウトプットしていくサイト' />
+      imageOn
     </>
   )
 }
