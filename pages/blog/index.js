@@ -1,6 +1,11 @@
+import Container from 'components/Container'
 import Hero from 'components/hero'
 
 const Blog = () => {
-  return <Hero title='Blog' subtitle='Recent Posts' />
+  return (
+    <Container>
+      <Hero title='Blog' subtitle='Recent Posts' />
+    </Container>
+  )
 }
 export default Blog
