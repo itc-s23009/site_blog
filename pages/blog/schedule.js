@@ -19,7 +19,7 @@ const Schedule = ({ title, publish, content, eyecatch, categories }) => {
           <Image
             src={eyecatch.url}
             alt=''
-            layout='respondive'
+            layout='responsive'
             width={eyecatch.width}
             height={eyecatch.height}
             sizes='(min-width: 1152px) 1152px, 100vw'
