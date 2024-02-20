@@ -89,6 +89,7 @@ const getStaticProps = async context => {
   const post = await getPostBySlug(slug)
   const description = extractText(post.content)
   const eyecatch = post.eyecatch ?? eyecatchLocal
+
   const imageBuffer = await getImageBuffer(eyecatch.url)
   const { base64 } = await getPlaiceholder(imageBuffer)
   eyecatch.blurDataURL = base64
