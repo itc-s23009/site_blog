@@ -1,21 +1,24 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const AkinatorPage = () => {
   const [question, setQuestion] = useState('')
   const [answers, setAnswers] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [session, setSession] = useState(null)
 
   useEffect(() => {
     const fetchAkinatorData = async () => {
-      const region = 'en'
-      const childMode = false
-      const proxy = undefined
-
-      const aki = new Aki({ region, childMode, proxy })
-      await aki.start()
-      setQuestion(aki.question)
-      setAnswers(aki.answers)
-      setIsLoading(false)
+      try {
+        const response = await fetch('/api/akinator/start')
+        const data = await response.json()
+        setQuestion(data.question)
+        setAnswers(data.answers)
+        setIsLoading(false)
+        setSession(data.session)
+      } catch (error) {
+        console.error('Failed to fetch Akinator data:', error)
+        setIsLoading(false)
+      }
     }
 
     fetchAkinatorData()
@@ -23,11 +26,22 @@ const AkinatorPage = () => {
 
   const handleAnswer = async answer => {
     setIsLoading(true)
-    const aki = new Aki()
-    await aki.step(answer)
-    setQuestion(aki.question)
-    setAnswers(aki.answers)
-    setIsLoading(false)
+    try {
+      const response = await fetch('/api/akinator/answer', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ answer, session })
+      })
+      const data = await response.json()
+      setQuestion(data.question)
+      setAnswers(data.answers)
+      setIsLoading(false)
+    } catch (error) {
+      console.error('Failed to submit answer:', error)
+      setIsLoading(false)
+    }
   }
 
   return (
