@@ -7,6 +7,7 @@ import * as gtag from 'lib/gtag'
 
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { config } from '@fortawesome/fontawesome-svg-core'
+import 'leaflet/dist/leaflet.css'
 
 config.autoAddCss = false
 
